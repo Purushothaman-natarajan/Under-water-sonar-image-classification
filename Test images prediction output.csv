@@ -1,0 +1,25 @@
+Image,VGG19_model_RMSprop,VGG16_model_RMSprop,InceptionV3_model_RMSprop,VGG16_model,VGG19_model,MobileNetV2_model_RMSprop,ResNet50_model,MobileNetV2_model,Xception_model_RMSprop,ResNet50_model_RMSprop,Xception_model,DenseNet121_model_RMSprop,DenseNet121_model,InceptionV3_model
+mine1.jpg,Mine,Mine,Mine,Mine,Mine,Mine,Mine,Mine,Mine,Mine,Mine,Mine,Mine,Mine
+mine2.jpg,Mine,Mine,Mine,Mine,Mine,Mine,Mine,Mine,Mine,Mine,Mine,Mine,Mine,Mine
+plane-real_original_plane-24.png_0596f4da-d29c-4b0a-ad6b-2c197226e353.png,Ship,Ship,Ship,Ship,Ship,Ship,Ship,Ship,Ship,Ship,Plane,Plane,Ship,Ship
+plane-real_original_plane-33.png_7a6b3208-3555-4a06-b54b-b2be085ad386.png,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane
+plane-real_original_plane-43.png_ba26ae8c-33f5-493e-b969-5b5cea009144.png,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane
+plane-real_original_29.jpg_c8306b4b-878d-4705-9f4e-d1cdaf01003f.jpg,Ship,Ship,Plane,Ship,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane
+plane-real_original_plane-23.png_015d08f4-4385-4c6d-ad00-879fd73a15ef.png,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Human,Plane,Human,Plane,Plane
+s137c3046.jpg,Ship,Ship,Plane,Ship,Ship,Plane,Ship,Plane,Plane,Ship,Plane,Mine,Mine,Plane
+upscaled_cubic.jpg,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane
+fish.png,Fish,Fish,Fish,Fish,Fish,Fish,Fish,Fish,Fish,Fish,Fish,Fish,Fish,Fish
+plane-real_original_plane-22.png_46715ed5-d502-49a8-99c7-2a0192530162.png,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane
+ship-363_with some effects.png,Ship,Ship,Ship,Ship,Ship,Ship,Ship,Ship,Ship,Ship,Ship,Ship,Ship,Ship
+crop_ship.png,Ship,Ship,Ship,Ship,Ship,Ship,Ship,Ship,Ship,Plane,Ship,Ship,Ship,Ship
+plane-real_original_plane-36.png_8d2de4d2-5adf-410f-b538-08f66d304eb7.png,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane
+vertical_flip.jpg,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane
+ship-012.png,Ship,Ship,Ship,Ship,Ship,Ship,Plane,Ship,Ship,Plane,Ship,Ship,Ship,Ship
+horizontal_flip.jpg,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane
+ship-013.png,Ship,Ship,Ship,Ship,Ship,Ship,Ship,Ship,Ship,Ship,Ship,Ship,Ship,Ship
+plane-real_original_30.jpg_62636381-d8af-4ade-aca7-4be90dce0785.jpg,Ship,Ship,Plane,Ship,Ship,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane
+ship-019-1.png,Ship,Ship,Ship,Ship,Ship,Ship,Human,Ship,Ship,Human,Ship,Ship,Ship,Ship
+upscaled_nearest_neighbor.jpg,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane
+plane-real_original_21.jpg_47a680e1-0c18-408d-9c6a-902abf37b01e.jpg,Ship,Ship,Ship,Ship,Ship,Plane,Plane,Ship,Seafloor,Seafloor,Seafloor,Seafloor,Seafloor,Ship
+ship-005.png,Ship,Ship,Ship,Ship,Ship,Ship,Ship,Ship,Ship,Plane,Ship,Ship,Ship,Ship
+upscaled_bi_linear.jpg,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane,Plane
