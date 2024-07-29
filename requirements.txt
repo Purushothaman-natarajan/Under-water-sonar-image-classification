@@ -1,0 +1,8 @@
+setuptools==71.1.0
+tensorflow==2.16.1
+keras==3.4.1
+scikit-learn==1.2.2
+matplotlib==3.9.1
+seaborn==0.13.2
+tqdm==4.66.4
+gradio==4.39.0
