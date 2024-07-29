@@ -8,6 +8,12 @@
 
 # Under-water-sonar-image-classification-with-XAI-LIME
 
+## Architechture
+
+<p align="center">
+  <img src="others/architechture.png" alt="Preview">
+</p>
+
 ## Prerequisites
 
 - Python 3.6 or higher
