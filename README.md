@@ -15,7 +15,7 @@
 </p>
 
 ## TODOs
-- [x] Adding demo video.
+- [x] Added model development scripts.
 - [ ] LIME and SP-LIME codes.
 
 ## Prerequisites
@@ -88,7 +88,7 @@ python train.py --base_model_names <model_names> --shape <shape> --data_path <da
 **Example:**
 
 ```sh
-python train.py --base_models "vgg16,alexnet" --shape 224 224 3 --data_path "./data" --log_dir "./logs" --model_dir "./models" --epochs 100 --optimizer "adam" --learning_rate 0.001 --batch_size 32
+python train.py --base_models "VGG16,ResNet50" --shape 224 224 3 --data_path "./data" --log_dir "./logs" --model_dir "./models" --epochs 100 --optimizer "adam" --learning_rate 0.001 --batch_size 32
 ```
 
 #### 3. `test.py`
@@ -159,7 +159,7 @@ subprocess.run([
 # Run train.py
 subprocess.run([
     "python", "train.py",
-    "--base_models", "vgg16,alexnet",
+    "--base_models", "VGG16,ResNet50",
     "--shape", "224, 224, 3",
     "--data_path", "./data",
     "--log_dir", "./logs",
