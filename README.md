@@ -11,7 +11,7 @@
 ## Architechture
 
 <p align="center">
-  <img src="others/architechture.png" alt="Preview">
+  <img src="assets/architechture.png" alt="Preview">
 </p>
 
 ## TODOs
