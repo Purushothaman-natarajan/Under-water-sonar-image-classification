@@ -8,6 +8,11 @@
 
 # Under-water-sonar-image-classification-with-XAI-LIME
 
+[Purushothaman Natarajan](https://purushothaman-natarajan.github.io/), [Athira Nambiar](https://www.srmist.edu.in/faculty/dr-athira-m-nambiar/)
+
+[[`Paper`](https://arxiv.org/abs/2408.12837)] [[`Dataset`](https://github.com/Purushothaman-natarajan/Under-water-sonar-image-classification/tree/main/Dataset)] [[`BibTeX`](#Citing-Under-water-sonar-image-classifier-with-XAI-LIME)]
+
+
 Train Under-water SONAR image classification models and generate explanations using either LIME (Local Interpretable Model-agnostic Explanations) or SP-LIME (Sub-Modular Picks LIME).
 
 ## Architechture
@@ -261,6 +266,22 @@ subprocess.run([
 
 ## License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Citing Under water sonar image classifier with XAI LIME
+
+If you use our SONAR classifier or the explainer in your research, please use the following BibTeX entry.
+
+```
+@misc{natarajan2024underwatersonarimageclassification,
+      title={Underwater SONAR Image Classification and Analysis using LIME-based Explainable Artificial Intelligence}, 
+      author={Purushothaman Natarajan and Athira Nambiar},
+      year={2024},
+      eprint={2408.12837},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2408.12837}, 
+}
+```
 
 ----
 [contributors-shield]: https://img.shields.io/github/contributors/Purushothaman-natarajan/Under-water-sonar-image-classification.svg?style=flat-square
