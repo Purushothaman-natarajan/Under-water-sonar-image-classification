@@ -272,14 +272,11 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 If you use our SONAR classifier or the explainer in your research, please use the following BibTeX entry.
 
 ```
-@misc{natarajan2024underwatersonarimageclassification,
-      title={Underwater SONAR Image Classification and Analysis using LIME-based Explainable Artificial Intelligence}, 
-      author={Purushothaman Natarajan and Athira Nambiar},
-      year={2024},
-      eprint={2408.12837},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2408.12837}, 
+@article{natarajan2024underwater,
+  title={Underwater SONAR Image Classification and Analysis using LIME-based Explainable Artificial Intelligence},
+  author={Natarajan, Purushothaman and Nambiar, Athira},
+  journal={arXiv preprint arXiv:2408.12837},
+  year={2024}
 }
 ```
 
