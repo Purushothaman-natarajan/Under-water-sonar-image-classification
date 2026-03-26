@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Under-water SONAR Image Classification with XAI-LIME</title>
+    <meta name="description" content="Train underwater SONAR image classification models and generate explanations using LIME (Local Interpretable Model-agnostic Explanations) or SP-LIME.">
+    <meta name="keywords" content="sonar image classification, deep learning, XAI, LIME, explainable AI, underwater sonar, computer vision, TensorFlow, Keras, transfer learning">
+    <meta name="author" content="Purushothaman Natarajan, Athira Nambiar">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Under-water SONAR Image Classification with XAI-LIME">
+    <meta property="og:description" content="Train underwater SONAR image classification models with explainable AI using LIME">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://purushothaman-natarajan.github.io/Under-water-sonar-image-classification/">
+    <meta property="og:image" content="https://purushothaman-natarajan.github.io/Under-water-sonar-image-classification/assets/architechture.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Under-water SONAR Image Classification with XAI-LIME">
+    <meta name="twitter:description" content="Train underwater SONAR image classification models with explainable AI using LIME">
+    <meta name="twitter:image" content="https://purushothaman-natarajan.github.io/Under-water-sonar-image-classification/assets/architechture.png">
+    <link rel="canonical" href="https://purushothaman-natarajan.github.io/Under-water-sonar-image-classification/">
+    <link rel="alternate" hreflang="en" href="https://purushothaman-natarajan.github.io/Under-water-sonar-image-classification/">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #0891b2;
+            --secondary: #0e7490;
+            --accent: #22d3ee;
+            --dark: #164e63;
+            --light: #f0f9ff;
+            --text: #334155;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--light);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--dark) 0%, #083344 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #67e8f9, #22d3ee);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        header p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+        
+        .badges {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .badge {
+            background: rgba(255,255,255,0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        nav {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            list-style: none;
+            padding: 15px 0;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: var(--primary);
+        }
+        
+        section {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .feature-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .architecture {
+            background: white;
+        }
+        
+        .arch-image {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .arch-image img {
+            max-width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .models-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .model-item {
+            background: var(--light);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .model-item:hover {
+            border-color: var(--primary);
+        }
+        
+        .model-item i {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin-bottom: 10px;
+        }
+        
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .doc-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            text-decoration: none;
+            color: var(--text);
+            transition: all 0.3s;
+        }
+        
+        .doc-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 5px 15px rgba(8,145,178,0.1);
+        }
+        
+        .doc-card i {
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+        
+        .doc-card h3 {
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .doc-card p {
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+        
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+        
+        .code-block code {
+            color: #9cdcfe;
+        }
+        
+        .code-block .comment {
+            color: #6a9955;
+        }
+        
+        .code-block .keyword {
+            color: #569cd6;
+        }
+        
+        .code-block .string {
+            color: #ce9178;
+        }
+        
+        .code-block .function {
+            color: #dcdcaa;
+        }
+        
+        .step-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .step-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            position: relative;
+        }
+        
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 20px;
+        }
+        
+        .step-card h3 {
+            text-align: center;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .step-card p {
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+        
+        .xai-section {
+            background: white;
+        }
+        
+        .xai-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .xai-card {
+            background: var(--light);
+            padding: 30px;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .xai-card h3 {
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+        
+        .citation {
+            background: white;
+        }
+        
+        .citation pre {
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+        }
+        
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 40px 0;
+        }
+        
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        .links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .links a {
+            color: white;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+        
+        .links a:hover {
+            color: var(--accent);
+        }
+        
+        .dataset-section {
+            background: white;
+        }
+        
+        .dataset-structure {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                padding: 40px 15px;
+            }
+            header h1 {
+                font-size: 2rem;
+            }
+            header p {
+                font-size: 1rem;
+            }
+            .badges {
+                gap: 8px;
+            }
+            .badge {
+                padding: 6px 12px;
+                font-size: 0.8rem;
+            }
+            .section-title h2 {
+                font-size: 1.75rem;
+            }
+            nav ul {
+                flex-wrap: nowrap;
+                justify-content: flex-start;
+                padding: 12px 15px;
+                gap: 15px;
+            }
+            nav a {
+                white-space: nowrap;
+                font-size: 0.85rem;
+            }
+            section {
+                padding: 40px 15px;
+            }
+            .features-grid, .docs-grid, .step-cards, .xai-grid {
+                grid-template-columns: 1fr;
+            }
+            .models-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .code-block {
+                font-size: 0.75rem;
+                padding: 15px;
+            }
+            footer {
+                padding: 30px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Under-water SONAR Classification</h1>
+            <p>Train underwater SONAR image classification models and generate explanations using LIME-based Explainable Artificial Intelligence</p>
+            <div class="badges">
+                <span class="badge"><i class="fas fa-file-alt"></i> MIT License</span>
+                <span class="badge"><i class="fab fa-python"></i> Python 3.6+</span>
+                <span class="badge"><i class="fas fa-fire"></i> TensorFlow/Keras</span>
+                <span class="badge"><i class="fas fa-brain"></i> Transfer Learning</span>
+                <span class="badge"><i class="fas fa-question-circle"></i> XAI/LIME</span>
+            </div>
+        </div>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#architecture">Architecture</a></li>
+            <li><a href="#models">Supported Models</a></li>
+            <li><a href="#docs">Docs</a></li>
+            <li><a href="#quickstart">Quick Start</a></li>
+            <li><a href="#xai">XAI</a></li>
+            <li><a href="#citation">Citation</a></li>
+        </ul>
+    </nav>
+    
+    <section id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why This Project?</h2>
+                <p>Powerful, flexible, and explainable underwater SONAR image classification</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-network-wired"></i>
+                    <h3>Transfer Learning</h3>
+                    <p>Leverage pre-trained state-of-the-art CNN models (VGG, ResNet, Inception, etc.) for robust underwater SONAR image classification.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-question-circle"></i>
+                    <h3>Explainable AI (XAI)</h3>
+                    <p>Generate visual explanations using LIME and SP-LIME to understand model predictions and build trust in critical applications.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-cogs"></i>
+                    <h3>Flexible Training</h3>
+                    <p>Customizable training pipeline with support for multiple optimizers, learning rates, batch sizes, and early stopping.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-images"></i>
+                    <h3>Data Augmentation</h3>
+                    <p>Built-in data augmentation to improve model generalization and prevent overfitting on limited sonar datasets.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Comprehensive Testing</h3>
+                    <p>Evaluate models with confusion matrices, classification reports, and detailed performance metrics.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-rocket"></i>
+                    <h3>Easy Inference</h3>
+                    <p>Simple API for making predictions on new sonar images with or without explanations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="architecture" class="architecture">
+        <div class="container">
+            <div class="section-title">
+                <h2>Architecture</h2>
+                <p>System architecture for underwater SONAR image classification with XAI</p>
+            </div>
+            <div class="arch-image">
+                <img src="assets/architechture.png" alt="Under-water SONAR Classification Architecture">
+            </div>
+            <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+                <h3 style="margin-bottom: 20px; font-size: 1.5rem;">Workflow</h3>
+                <p style="color: #64748b;">The pipeline consists of data loading with optional augmentation, transfer learning-based model training using pre-trained CNN architectures, and inference with optional LIME/SP-LIME explanations for model interpretability.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section id="models">
+        <div class="container">
+            <div class="section-title">
+                <h2>Supported Models</h2>
+                <p>Choose from a wide range of pre-trained CNN architectures</p>
+            </div>
+            <div class="models-grid">
+                <div class="model-item"><i class="fas fa-cube"></i><p>VGG16</p></div>
+                <div class="model-item"><i class="fas fa-cube"></i><p>VGG19</p></div>
+                <div class="model-item"><i class="fas fa-cube"></i><p>ResNet50</p></div>
+                <div class="model-item"><i class="fas fa-cube"></i><p>ResNet101</p></div>
+                <div class="model-item"><i class="fas fa-cube"></i><p>InceptionV3</p></div>
+                <div class="model-item"><i class="fas fa-cube"></i><p>DenseNet121</p></div>
+                <div class="model-item"><i class="fas fa-cube"></i><p>DenseNet201</p></div>
+                <div class="model-item"><i class="fas fa-cube"></i><p>MobileNetV2</p></div>
+                <div class="model-item"><i class="fas fa-cube"></i><p>Xception</p></div>
+                <div class="model-item"><i class="fas fa-cube"></i><p>InceptionResNetV2</p></div>
+                <div class="model-item"><i class="fas fa-cube"></i><p>NASNetLarge</p></div>
+                <div class="model-item"><i class="fas fa-cube"></i><p>NASNetMobile</p></div>
+                <div class="model-item"><i class="fas fa-cube"></i><p>EfficientNetB0</p></div>
+                <div class="model-item"><i class="fas fa-cube"></i><p>EfficientNetB7</p></div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="docs">
+        <div class="container">
+            <div class="section-title">
+                <h2>Documentation</h2>
+                <p>Everything you need to get started</p>
+            </div>
+            <div class="docs-grid">
+                <a href="#quickstart" class="doc-card">
+                    <i class="fas fa-download"></i>
+                    <h3>Installation</h3>
+                    <p>Set up your development environment and install required packages.</p>
+                </a>
+                <a href="#dataset" class="doc-card">
+                    <i class="fas fa-database"></i>
+                    <h3>Dataset Structure</h3>
+                    <p>Learn about the expected dataset format and organization.</p>
+                </a>
+                <a href="#training" class="doc-card">
+                    <i class="fas fa-dumbbell"></i>
+                    <h3>Training</h3>
+                    <p>Train classification models using transfer learning.</p>
+                </a>
+                <a href="#testing" class="doc-card">
+                    <i class="fas fa-vial"></i>
+                    <h3>Testing</h3>
+                    <p>Evaluate trained models with comprehensive metrics.</p>
+                </a>
+                <a href="#prediction" class="doc-card">
+                    <i class="fas fa-bullseye"></i>
+                    <h3>Prediction</h3>
+                    <p>Make predictions on new sonar images.</p>
+                </a>
+                <a href="#xai" class="doc-card">
+                    <i class="fas fa-lightbulb"></i>
+                    <h3>XAI Explanations</h3>
+                    <p>Generate LIME and SP-LIME explanations for predictions.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <section id="quickstart">
+        <div class="container">
+            <div class="section-title">
+                <h2>Quick Start</h2>
+                <p>Get started with underwater SONAR classification in minutes</p>
+            </div>
+            
+            <h3 id="setup" style="margin-bottom: 20px; font-size: 1.5rem;">Installation</h3>
+            <div class="code-block">
+                <code><span class="comment"># Clone the repository</span>
+<span class="keyword">git clone</span> https://github.com/Purushothaman-natarajan/Under-water-sonar-image-classification.git
+<span class="keyword">cd</span> Under-water-sonar-image-classification
+
+<span class="comment"># Install dependencies</span>
+<span class="keyword">pip install</span> -r requirements.txt</code>
+            </div>
+            
+            <h3 id="dataset" style="margin: 40px 0 20px; font-size: 1.5rem;">Dataset Structure</h3>
+            <div class="dataset-structure">
+├── Dataset (Raw)<br>
+&nbsp;&nbsp;├── class_name_1<br>
+&nbsp;&nbsp;│&nbsp;&nbsp;└── *.jpg<br>
+&nbsp;&nbsp;├── class_name_2<br>
+&nbsp;&nbsp;│&nbsp;&nbsp;└── *.jpg<br>
+&nbsp;&nbsp;├── class_name_3<br>
+&nbsp;&nbsp;│&nbsp;&nbsp;└── *.jpg<br>
+&nbsp;&nbsp;└── class_name_4<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── *.jpg
+            </div>
+            
+            <h3 id="dataload" style="margin: 40px 0 20px; font-size: 1.5rem;">Step 1: Data Loading & Processing</h3>
+            <div class="code-block">
+                <code><span class="comment"># Process and prepare dataset</span>
+<span class="keyword">python</span> data_loader.py <span class="string">--path</span> ./data <span class="string">--target_folder</span> ./processed_data <span class="string">--dim</span> 224 <span class="string">--batch_size</span> 32 <span class="string">--num_workers</span> 4 <span class="string">--augment_data</span></code>
+            </div>
+            
+            <h3 id="training" style="margin: 40px 0 20px; font-size: 1.5rem;">Step 2: Training</h3>
+            <div class="code-block">
+                <code><span class="comment"># Train with VGG16</span>
+<span class="keyword">python</span> train.py <span class="string">--base_models</span> VGG16 <span class="string">--shape</span> 224 224 3 <span class="string">--data_path</span> ./processed_data <span class="string">--log_dir</span> ./logs <span class="string">--model_dir</span> ./models <span class="string">--epochs</span> 100 <span class="string">--optimizer</span> adam <span class="string">--learning_rate</span> 0.001 <span class="string">--batch_size</span> 32 <span class="string">--patience</span> 10
+
+<span class="comment"># Train with multiple models</span>
+<span class="keyword">python</span> train.py <span class="string">--base_models</span> VGG16 ResNet50 <span class="string">--shape</span> 224 224 3 <span class="string">--data_path</span> ./processed_data <span class="string">--log_dir</span> ./logs <span class="string">--model_dir</span> ./models <span class="string">--epochs</span> 100</code>
+            </div>
+            
+            <h3 id="testing" style="margin: 40px 0 20px; font-size: 1.5rem;">Step 3: Testing</h3>
+            <div class="code-block">
+                <code><span class="comment"># Test trained model</span>
+<span class="keyword">python</span> test.py <span class="string">--model_path</span> ./models/vgg16_model.keras <span class="string">--test_dir</span> ./test_data <span class="string">--train_dir</span> ./processed_data/train <span class="string">--log_dir</span> ./logs</code>
+            </div>
+            
+            <h3 id="prediction" style="margin: 40px 0 20px; font-size: 1.5rem;">Step 4: Prediction</h3>
+            <div class="code-block">
+                <code><span class="comment"># Predict on new image</span>
+<span class="keyword">python</span> predict.py <span class="string">--model_path</span> ./models/vgg16_model.keras <span class="string">--img_path</span> ./test_image.jpg <span class="string">--train_dir</span> ./processed_data/train</code>
+            </div>
+            
+            <h3 style="margin: 40px 0 20px; font-size: 1.5rem;">Arguments Reference</h3>
+            <div class="step-cards">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>data_loader.py</h3>
+                    <p>--path, --target_folder, --dim, --batch_size, --num_workers, --augment_data</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>train.py</h3>
+                    <p>--base_models, --shape, --data_path, --log_dir, --model_dir, --epochs, --optimizer, --learning_rate, --batch_size, --patience</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>test.py</h3>
+                    <p>--model_path, --test_dir, --train_dir, --log_dir</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="xai" class="xai-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Explainable AI (XAI)</h2>
+                <p>Generate visual explanations for model predictions using LIME</p>
+            </div>
+            <div class="xai-grid">
+                <div class="xai-card">
+                    <h3><i class="fas fa-microscope"></i> LIME</h3>
+                    <p>Local Interpretable Model-agnostic Explanations (LIME) generates local explanations by perturbing the input image and observing how the prediction changes. It identifies the most important regions for the model's decision.</p>
+                </div>
+                <div class="xai-card">
+                    <h3><i class="fas fa-layer-group"></i> SP-LIME</h3>
+                    <p>Sub-Modular Picks LIME selects a representative subset of explanations that cover different image regions while avoiding redundancy, providing a more comprehensive view of model behavior.</p>
+                </div>
+            </div>
+            
+            <h3 style="margin: 40px 0 20px; font-size: 1.5rem; text-align: center;">Generate Explanations</h3>
+            <div class="code-block">
+                <code><span class="comment"># Generate LIME explanation</span>
+<span class="keyword">python</span> predict_and_explain.py <span class="string">--image_path</span> ./test_image.jpg <span class="string">--model_path</span> ./models/vgg16_model.keras <span class="string">--train_directory</span> ./processed_data/train <span class="string">--explanation_method</span> lime <span class="string">--num_samples</span> 100 <span class="string">--num_features</span> 10
+
+<span class="comment"># Generate SP-LIME explanation</span>
+<span class="keyword">python</span> predict_and_explain.py <span class="string">--image_path</span> ./test_image.jpg <span class="string">--model_path</span> ./models/vgg16_model.keras <span class="string">--train_directory</span> ./processed_data/train <span class="string">--explanation_method</span> splime <span class="string">--num_samples</span> 100 <span class="string">--num_features</span> 10 <span class="string">--segmentation_alg</span> quickshift</code>
+            </div>
+            
+            <h3 style="margin: 40px 0 20px; font-size: 1.25rem;">Arguments</h3>
+            <div class="features-grid" style="margin-top: 20px;">
+                <div class="feature-card">
+                    <h3>Required</h3>
+                    <p>--image_path, --model_path, --train_directory, --explanation_method</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Optional</h3>
+                    <p>--num_samples (default: 100), --num_features (default: 10), --segmentation_alg (default: quickshift), --kernel_size (default: 2), --max_dist (default: 200), --ratio (default: 0.1)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="citation" class="citation">
+        <div class="container">
+            <div class="section-title">
+                <h2>Citation</h2>
+                <p>If you use this project in your research, please cite our paper</p>
+            </div>
+            <pre><code>@article{natarajan2024underwater,
+  title={Underwater SONAR Image Classification and Analysis using LIME-based Explainable Artificial Intelligence},
+  author={Natarajan, Purushothaman and Nambiar, Athira},
+  journal={arXiv preprint arXiv:2408.12837},
+  year={2024}
+}</code></pre>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="links">
+                <a href="https://github.com/Purushothaman-natarajan/Under-water-sonar-image-classification" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                <a href="https://arxiv.org/abs/2408.12837" target="_blank"><i class="fas fa-file-pdf"></i> Paper</a>
+                <a href="https://purushothaman-natarajan.github.io/" target="_blank"><i class="fas fa-globe"></i> Author Website</a>
+            </div>
+            <p>Under-water SONAR Image Classification &copy; 2024 Purushothaman Natarajan, Athira Nambiar</p>
+            <p style="margin-top: 10px; opacity: 0.7;">MIT License</p>
+        </div>
+    </footer>
+</body>
+</html>
