@@ -4,7 +4,3 @@ description: Train underwater SONAR image classification models and generate exp
 author: Purushothaman Natarajan, Athira Nambiar
 url: https://purushothaman-natarajan.github.io/Under-water-sonar-image-classification
 show_downloads: false
-
-# SEO
-plugins:
-  - jekyll-seo-tag
