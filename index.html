@@ -182,12 +182,7 @@
             
             <h3 id="setup" style="margin-bottom: 20px; font-size: 1.5rem;">Installation</h3>
             <div class="code-block">
-                <code><span class="comment"># Clone the repository</span>
-<span class="keyword">git clone</span> https://github.com/Purushothaman-natarajan/Under-water-sonar-image-classification.git
-<span class="keyword">cd</span> Under-water-sonar-image-classification
-
-<span class="comment"># Install dependencies</span>
-<span class="keyword">pip install</span> -r requirements.txt</code>
+                <code><span class="comment"># Clone the repository</span><br><span class="keyword">git clone</span> https://github.com/Purushothaman-natarajan/Under-water-sonar-image-classification.git<br><span class="keyword">cd</span> Under-water-sonar-image-classification<br><br><span class="comment"># Install dependencies</span><br><span class="keyword">pip install</span> -r requirements.txt</code>
             </div>
             
             <h3 id="dataset" style="margin: 40px 0 20px; font-size: 1.5rem;">Dataset Structure</h3>
@@ -205,29 +200,22 @@
             
             <h3 id="dataload" style="margin: 40px 0 20px; font-size: 1.5rem;">Step 1: Data Loading & Processing</h3>
             <div class="code-block">
-                <code><span class="comment"># Process and prepare dataset</span>
-<span class="keyword">python</span> data_loader.py <span class="string">--path</span> ./data <span class="string">--target_folder</span> ./processed_data <span class="string">--dim</span> 224 <span class="string">--batch_size</span> 32 <span class="string">--num_workers</span> 4 <span class="string">--augment_data</span></code>
+                <code><span class="comment"># Process and prepare dataset</span><br><span class="keyword">python</span> data_loader.py <span class="string">--path</span> ./data <span class="string">--target_folder</span> ./processed_data <span class="string">--dim</span> 224 <span class="string">--batch_size</span> 32 <span class="string">--num_workers</span> 4 <span class="string">--augment_data</span></code>
             </div>
             
             <h3 id="training" style="margin: 40px 0 20px; font-size: 1.5rem;">Step 2: Training</h3>
             <div class="code-block">
-                <code><span class="comment"># Train with VGG16</span>
-<span class="keyword">python</span> train.py <span class="string">--base_models</span> VGG16 <span class="string">--shape</span> 224 224 3 <span class="string">--data_path</span> ./processed_data <span class="string">--log_dir</span> ./logs <span class="string">--model_dir</span> ./models <span class="string">--epochs</span> 100 <span class="string">--optimizer</span> adam <span class="string">--learning_rate</span> 0.001 <span class="string">--batch_size</span> 32 <span class="string">--patience</span> 10
-
-<span class="comment"># Train with multiple models</span>
-<span class="keyword">python</span> train.py <span class="string">--base_models</span> VGG16 ResNet50 <span class="string">--shape</span> 224 224 3 <span class="string">--data_path</span> ./processed_data <span class="string">--log_dir</span> ./logs <span class="string">--model_dir</span> ./models <span class="string">--epochs</span> 100</code>
+                <code><span class="comment"># Train with VGG16</span><br><span class="keyword">python</span> train.py <span class="string">--base_models</span> VGG16 <span class="string">--shape</span> 224 224 3 <span class="string">--data_path</span> ./processed_data <span class="string">--log_dir</span> ./logs <span class="string">--model_dir</span> ./models <span class="string">--epochs</span> 100 <span class="string">--optimizer</span> adam <span class="string">--learning_rate</span> 0.001 <span class="string">--batch_size</span> 32 <span class="string">--patience</span> 10<br><br><span class="comment"># Train with multiple models</span><br><span class="keyword">python</span> train.py <span class="string">--base_models</span> VGG16 ResNet50 <span class="string">--shape</span> 224 224 3 <span class="string">--data_path</span> ./processed_data <span class="string">--log_dir</span> ./logs <span class="string">--model_dir</span> ./models <span class="string">--epochs</span> 100</code>
             </div>
             
             <h3 id="testing" style="margin: 40px 0 20px; font-size: 1.5rem;">Step 3: Testing</h3>
             <div class="code-block">
-                <code><span class="comment"># Test trained model</span>
-<span class="keyword">python</span> test.py <span class="string">--model_path</span> ./models/vgg16_model.keras <span class="string">--test_dir</span> ./test_data <span class="string">--train_dir</span> ./processed_data/train <span class="string">--log_dir</span> ./logs</code>
+                <code><span class="comment"># Test trained model</span><br><span class="keyword">python</span> test.py <span class="string">--model_path</span> ./models/vgg16_model.keras <span class="string">--test_dir</span> ./test_data <span class="string">--train_dir</span> ./processed_data/train <span class="string">--log_dir</span> ./logs</code>
             </div>
             
             <h3 id="prediction" style="margin: 40px 0 20px; font-size: 1.5rem;">Step 4: Prediction</h3>
             <div class="code-block">
-                <code><span class="comment"># Predict on new image</span>
-<span class="keyword">python</span> predict.py <span class="string">--model_path</span> ./models/vgg16_model.keras <span class="string">--img_path</span> ./test_image.jpg <span class="string">--train_dir</span> ./processed_data/train</code>
+                <code><span class="comment"># Predict on new image</span><br><span class="keyword">python</span> predict.py <span class="string">--model_path</span> ./models/vgg16_model.keras <span class="string">--img_path</span> ./test_image.jpg <span class="string">--train_dir</span> ./processed_data/train</code>
             </div>
             
             <h3 style="margin: 40px 0 20px; font-size: 1.5rem;">Arguments Reference</h3>
@@ -270,11 +258,7 @@
             
             <h3 style="margin: 40px 0 20px; font-size: 1.5rem; text-align: center;">Generate Explanations</h3>
             <div class="code-block">
-                <code><span class="comment"># Generate LIME explanation</span>
-<span class="keyword">python</span> predict_and_explain.py <span class="string">--image_path</span> ./test_image.jpg <span class="string">--model_path</span> ./models/vgg16_model.keras <span class="string">--train_directory</span> ./processed_data/train <span class="string">--explanation_method</span> lime <span class="string">--num_samples</span> 100 <span class="string">--num_features</span> 10
-
-<span class="comment"># Generate SP-LIME explanation</span>
-<span class="keyword">python</span> predict_and_explain.py <span class="string">--image_path</span> ./test_image.jpg <span class="string">--model_path</span> ./models/vgg16_model.keras <span class="string">--train_directory</span> ./processed_data/train <span class="string">--explanation_method</span> splime <span class="string">--num_samples</span> 100 <span class="string">--num_features</span> 10 <span class="string">--segmentation_alg</span> quickshift</code>
+                <code><span class="comment"># Generate LIME explanation</span><br><span class="keyword">python</span> predict_and_explain.py <span class="string">--image_path</span> ./test_image.jpg <span class="string">--model_path</span> ./models/vgg16_model.keras <span class="string">--train_directory</span> ./processed_data/train <span class="string">--explanation_method</span> lime <span class="string">--num_samples</span> 100 <span class="string">--num_features</span> 10<br><br><span class="comment"># Generate SP-LIME explanation</span><br><span class="keyword">python</span> predict_and_explain.py <span class="string">--image_path</span> ./test_image.jpg <span class="string">--model_path</span> ./models/vgg16_model.keras <span class="string">--train_directory</span> ./processed_data/train <span class="string">--explanation_method</span> splime <span class="string">--num_samples</span> 100 <span class="string">--num_features</span> 10 <span class="string">--segmentation_alg</span> quickshift</code>
             </div>
             
             <h3 style="margin: 40px 0 20px; font-size: 1.25rem;">Arguments</h3>
